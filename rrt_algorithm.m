@@ -13,12 +13,12 @@ function qMilestones = rrt_algorithm(rob,qStart,qGoal,sphereCenters,sphereRadii)
     nodes(1).parent=0;
     nodes(1).v=qStart;
     
-    %fprintf("Generating configurations in free space from start to goal\n");
+    fprintf("Generating configurations in free space from start to goal\n");
     index=1;
     % loop till qGoal is reached
     while ~isequal(nodes(index).v, qGoal)
         %generate random q. for every 10th iteration consider qGoal
-        if mod(index,10) == 0
+        if mod(index,10) == 0 % TODO: bug here. should use another check for last edge collision
             fprintf("\tgenerated %d free configurations...\n",index);
             qRand = qGoal;
         else
