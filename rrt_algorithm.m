@@ -15,10 +15,11 @@ function qMilestones = rrt_algorithm(rob,qStart,qGoal,sphereCenters,sphereRadii)
     
     fprintf("Generating configurations in free space from start to goal\n");
     index=1;
+    goalEdgeCollision=false;
     % loop till qGoal is reached
     while ~isequal(nodes(index).v, qGoal)
         %generate random q. for every 10th iteration consider qGoal
-        if mod(index,10) == 0 % TODO: bug here. should use another check for last edge collision
+        if mod(index,10) == 0 && goalEdgeCollision == false % TODO: bug here. should use another check for last edge collision
             fprintf("\tgenerated %d free configurations...\n",index);
             qRand = qGoal;
         else
@@ -44,6 +45,13 @@ function qMilestones = rrt_algorithm(rob,qStart,qGoal,sphereCenters,sphereRadii)
         
         %if edge to nearest node is in collision, then go to next loop
         if checkEdgeCollision(rob,qRand,nodes(nearestParent).v,sphereCenters,sphereRadii) == 1
+            %if the current rand cofig is goal and there is a edge collision, 
+            %   next config should not be goal config.
+            if isequal(qRand, qGoal)        
+                goalEdgeCollision = true;
+            else
+                goalEdgeCollision = false;
+            end
             continue
         end
         
