@@ -55,7 +55,7 @@ function start_path_planning(algorithmType, startX, startY, startZ, endX, endY, 
     sphereRadii = [sphereRadius0, sphereRadius1, sphereRadius2, sphereRadius3, sphereRadius4];
     
     % Plot robot and sphere
-    rob.plot(qStart);
+    rob.plot(qStart,'trail', 'ro');
     hold on;	
     for i = 1 : length(sphereRadii)
         drawSphere(sphereCenters(:, i), sphereRadii(i));
@@ -81,7 +81,7 @@ function start_path_planning(algorithmType, startX, startY, startZ, endX, endY, 
     if qMilestones
         % Plot robot following path
         qTrajectory = interpolateMilestones(qMilestones);
-        rob.plot(qTrajectory);
+        rob.plot(qTrajectory, 'trail', 'ro');
     else
         % no milestones are found 
         fprintf('No valid path found from start to goal\n');
