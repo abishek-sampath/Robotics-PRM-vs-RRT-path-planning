@@ -20,7 +20,6 @@ function collision = robotCollision(rob,q,sphereCenters,sphereRadii)
 end
 
 % check collision in single sphere obstacle
-% TODO: confirm if below implementation is correct
 function collision = robotCollisionInSphere(rob,qIn,sphereCenter,r)
     q = qIn';   % qIn is a row vector. convert to column vector.
     x1 = [0;0;0];
